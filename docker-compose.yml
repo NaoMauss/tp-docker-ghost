@@ -12,10 +12,15 @@ services:
       database__connection__password: example
       database__connection__database: ghost_prod
       url: http://localhost:2368
+      mail__transport: SMTP
+      mail__options__host: mailhog
+      mail__options__port: 1025
+      mail__options__secureConnection: false
     volumes:
       - ./content:/var/lib/ghost/content
     depends_on:
       - mariadb
+      - mailhog
     restart: always
 
   mariadb:
@@ -25,6 +30,13 @@ services:
       MYSQL_DATABASE: ghost_prod
     volumes:
       - mariadb_data:/var/lib/mysql
+    restart: always
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "8025:8025"
+      - "1025:1025"
     restart: always
 
 volumes:
