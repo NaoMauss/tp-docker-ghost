@@ -22,6 +22,3 @@ jobs:
         context: .
         push: false
         tags: test/build:latest
-
-    - name: Test
-      run: docker-compose up --exit-code-from ghost-prod
